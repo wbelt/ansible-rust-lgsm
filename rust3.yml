@@ -1,0 +1,26 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  become_user: rustserver
+  tasks:
+    - name: Rust server description
+      ansible.builtin.lineinfile:
+        path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
+        regexp: "^server.description"
+        line: "server.description \"Server will map wipe @ 11:00am ET every two weeks. We enforce a 4 person team maximum, base upkeep has been lowered 50%.\\nBP wipe only when forced.\\n\\nOnly rule... Don't be a dick, just plust play rust.\""
+    - name: Rust server headerimage
+      ansible.builtin.lineinfile:
+        path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
+        regexp: "^server.headerimage"
+        line: "server.headerimage https://i.imgur.com/uReayFY.jpg"
+    - name: Rust server url
+      ansible.builtin.lineinfile:
+        path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
+        regexp: "^server.url"
+        line: "server.url https://twitter.com/DoomCrickets"
+    - name: Rust RCON password
+      ansible.builtin.lineinfile:
+        path: /home/rustserver/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg
+        regexp: '^rconpassword="holly3fun!"'
+        line: 'rconpassword="holly3fun!"'

@@ -1,0 +1,65 @@
+---
+- hosts: bucklers
+  vars:
+    lgsm_prereqs:
+      - curl
+      - wget
+      - file
+      - tar
+      - bzip2
+      - gzip
+      - unzip
+      - bsdmainutils
+      - python3
+      - util-linux
+      - ca-certificates
+      - binutils
+      - bc
+      - jq
+      - tmux
+      - netcat
+      - lib32gcc-s1
+      - lib32stdc++6
+      - steamcmd
+      - lib32z1
+      - libsdl2-2.0-0:i386
+
+  gather_facts: true
+  become: true
+  become_user: root
+  tasks:
+    - name: Rust Server User
+      ansible.builtin.user:
+        name: rustserver
+        create_home: true
+        home: /home/rustserver
+        shell: /bin/bash
+    - name: accept steam license
+      debconf:
+        name: "steam"
+        question: "steam/question"
+        value: "I AGREE"
+        vtype: "select"
+    - name: Add i386 arch
+      command: dpkg --add-architecture i386
+    - name: Install prereqs
+      apt:
+        name: "{{ lgsm_prereqs }}"
+        update_cache: yes
+        state: present
+    - name: Download lgsm installer
+      ansible.builtin.shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
+      args:
+        chdir: /home/rustserver
+        creates: rustserver
+        executable: /bin/bash       
+      become: True
+      become_user: rustserver
+    - name: Rust Server install
+      shell: "./rustserver auto-install"
+      args:
+        chdir: /home/rustserver
+        creates: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
+        executable: /bin/bash       
+      become: True
+      become_user: rustserver

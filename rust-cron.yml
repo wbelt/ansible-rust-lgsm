@@ -1,0 +1,33 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  become_user: rustserver
+  tasks:
+    - name: Rust Cron Monitor
+      ansible.builtin.cron:
+        name: Rust Server Monitor
+        minute: "*/5"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "/home/rustserver/rustserver monitor > /dev/null 2>&1"
+    - name: Rust Cron Update
+      ansible.builtin.cron:
+        name: Rust Server Update
+        minute: "*/30"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "/home/rustserver/rustserver update > /dev/null 2>&1"
+    - name: Rust Cron Update LGSM
+      ansible.builtin.cron:
+        name: Rust Server Update LGSM
+        minute: "0"
+        hour: "0"
+        day: "*"
+        month: "*"
+        weekday: "0"
+        job: "/home/rustserver/rustserver update-lgsm > /dev/null 2>&1"
