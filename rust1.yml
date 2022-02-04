@@ -1,5 +1,5 @@
 ---
-- hosts: bucklers
+- hosts: all
   vars:
     lgsm_prereqs:
       - curl
