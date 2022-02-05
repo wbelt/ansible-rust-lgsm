@@ -7,19 +7,19 @@
     - name: Rust ownerid weld
       ansible.builtin.lineinfile:
         path: /home/rustserver/serverfiles/server/rustserver/cfg/users.cfg
-        regexp: '^ownerid=76561198024548959 "Weldrock" "Admin"'
-        line: 'ownerid=76561198024548959 "Weldrock" "Admin"'
+        regexp: '^ownerid 76561198024548959'
+        line: 'ownerid 76561198024548959 "Weldrock" "Admin"'
         create: yes
     - name: Rust ownerid redlott
       ansible.builtin.lineinfile:
         path: /home/rustserver/serverfiles/server/rustserver/cfg/users.cfg
-        regexp: '^ownerid=76561198025798290 "redlott22" "Admin"'
-        line: 'ownerid=76561198025798290 "redlott22" "Admin"'
+        regexp: '^ownerid 76561198025798290'
+        line: 'ownerid 76561198025798290 "redlott22" "Admin"'
     - name: Rust ownerid swash
       ansible.builtin.lineinfile:
         path: /home/rustserver/serverfiles/server/rustserver/cfg/users.cfg
-        regexp: '^ownerid=76561198989378213 "Swashbuckler8" "Admin"'
-        line: 'ownerid=76561198989378213 "Swashbuckler8" "Admin"'
+        regexp: '^ownerid 76561198989378213'
+        line: 'ownerid 76561198989378213 "Swashbuckler8" "Admin"'
     - name: Rust server description
       ansible.builtin.lineinfile:
         path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
