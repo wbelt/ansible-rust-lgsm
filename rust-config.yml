@@ -23,8 +23,8 @@
     - name: Rust server description
       ansible.builtin.lineinfile:
         path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
-        regexp: "^server.description"
-        line: "server.description {{ server_description }}"
+        regexp: '^server.description'
+        line: 'server.description "{{ server_description }}"'
     - name: Rust server headerimage
       ansible.builtin.lineinfile:
         path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
