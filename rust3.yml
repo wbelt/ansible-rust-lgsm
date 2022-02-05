@@ -22,5 +22,5 @@
     - name: Rust RCON password
       ansible.builtin.lineinfile:
         path: /home/rustserver/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg
-        regexp: '^rconpassword="holly3fun!"'
-        line: 'rconpassword="${RCON_PASSWORD}"'
+        regexp: '^rconpassword'
+        line: 'rconpassword="{{ RCON_PASSWORD }}"'
