@@ -35,11 +35,6 @@
         path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
         regexp: "^server.url"
         line: "server.url {{ server_url }}"
-    - name: Rust RCON password
-      ansible.builtin.lineinfile:
-        path: /home/rustserver/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg
-        regexp: '^rconpassword'
-        line: 'rconpassword="{{ rcon_password }}"'
     - name: Rust server tags
       ansible.builtin.lineinfile:
         path: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg

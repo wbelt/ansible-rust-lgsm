@@ -1,6 +1,7 @@
 ---
 - hosts: all
   vars:
+    rustuser: rustserver
     lgsm_prereqs:
       - curl
       - wget
@@ -30,10 +31,10 @@
   tasks:
     - name: Rust Server User
       ansible.builtin.user:
-        name: rustserver
+        name: {{ rustuser }}
         create_home: true
-        home: /home/rustserver
         shell: /bin/bash
+        register: usr
     - name: accept steam license
       debconf:
         name: "steam"
@@ -50,19 +51,24 @@
     - name: Download lgsm installer
       ansible.builtin.shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
       args:
-        chdir: /home/rustserver
+        chdir: {{ usr.home }}
         creates: rustserver
         executable: /bin/bash       
       become: True
-      become_user: rustserver
+      become_user: {{ rustuser }}
     - name: Rust Server install
       shell: "./rustserver auto-install"
       args:
-        chdir: /home/rustserver
-        creates: /home/rustserver/serverfiles/server/rustserver/cfg/server.cfg
+        chdir: {{ usr.home }}
+        creates: "./serverfiles/server/rustserver/cfg/server.cfg"
         executable: /bin/bash       
       become: True
-      become_user: rustserver
+      become_user: {{ rustuser }}
+    - name: Rust RCON password
+      ansible.builtin.lineinfile:
+        path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg"
+        regexp: '^rconpassword'
+        line: 'rconpassword="{{ rcon_password }}"'
     - name: Rust Cron Monitor
       ansible.builtin.cron:
         name: Rust Server Monitor
@@ -71,7 +77,7 @@
         day: "*"
         month: "*"
         weekday: "*"
-        job: "/home/rustserver/rustserver monitor > /dev/null 2>&1"
+        job: "{{ usr.home }}/rustserver monitor > /dev/null 2>&1"
     - name: Rust Cron Update
       ansible.builtin.cron:
         name: Rust Server Update
@@ -80,7 +86,7 @@
         day: "*"
         month: "*"
         weekday: "*"
-        job: "/home/rustserver/rustserver update > /dev/null 2>&1"
+        job: "{{ usr.home }}/rustserver update > /dev/null 2>&1"
     - name: Rust Cron Update LGSM
       ansible.builtin.cron:
         name: Rust Server Update LGSM
@@ -89,4 +95,4 @@
         day: "*"
         month: "*"
         weekday: "0"
-        job: "/home/rustserver/rustserver update-lgsm > /dev/null 2>&1"
+        job: "{{ usr.home }}/rustserver update-lgsm > /dev/null 2>&1"
