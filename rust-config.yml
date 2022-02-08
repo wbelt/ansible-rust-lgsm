@@ -8,7 +8,7 @@
     - name: Rust Server User
       ansible.builtin.user:
         name: "{{ rustuser }}"
-        register: usr
+      register: usr
     - name: Rust ownerid weld
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/server/rustserver/cfg/users.cfg"
