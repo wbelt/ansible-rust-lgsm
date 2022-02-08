@@ -9,22 +9,13 @@
       ansible.builtin.user:
         name: "{{ rustuser }}"
       register: usr
-    - name: Rust ownerid weld
+    - name: Add Rust ownerids
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/users.cfg"
-        regexp: '^ownerid 76561198024548959'
-        line: 'ownerid 76561198024548959 "Weldrock" "Admin"'
+        regexp: '^ownerid {{ item }}'
+        line: 'ownerid {{ item }}'
         create: yes
-    - name: Rust ownerid redlott
-      ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/users.cfg"
-        regexp: '^ownerid 76561198025798290'
-        line: 'ownerid 76561198025798290 "redlott22" "Admin"'
-    - name: Rust ownerid swash
-      ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/users.cfg"
-        regexp: '^ownerid 76561198989378213'
-        line: 'ownerid 76561198989378213 "Swashbuckler8" "Admin"'
+      loop: "{{ server.ownerids }}"
     - name: Rust server description
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
