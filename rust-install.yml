@@ -31,7 +31,7 @@
   tasks:
     - name: Rust Server User
       ansible.builtin.user:
-        name: {{ rustuser }}
+        name: "{{ rustuser }}"
         create_home: true
         shell: /bin/bash
         register: usr
@@ -51,19 +51,19 @@
     - name: Download lgsm installer
       ansible.builtin.shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
       args:
-        chdir: {{ usr.home }}
+        chdir: "{{ usr.home }}"
         creates: rustserver
         executable: /bin/bash       
       become: True
-      become_user: {{ rustuser }}
+      become_user: "{{ rustuser }}"
     - name: Rust Server install
       shell: "./rustserver auto-install"
       args:
-        chdir: {{ usr.home }}
+        chdir: "{{ usr.home }}"
         creates: "./serverfiles/server/rustserver/cfg/server.cfg"
         executable: /bin/bash       
       become: True
-      become_user: {{ rustuser }}
+      become_user: "{{ rustuser }}"
     - name: Rust RCON password
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg"
