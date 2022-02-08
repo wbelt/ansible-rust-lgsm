@@ -11,38 +11,38 @@
       register: usr
     - name: Rust ownerid weld
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/server/rustserver/cfg/users.cfg"
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/users.cfg"
         regexp: '^ownerid 76561198024548959'
         line: 'ownerid 76561198024548959 "Weldrock" "Admin"'
         create: yes
     - name: Rust ownerid redlott
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/server/rustserver/cfg/users.cfg"
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/users.cfg"
         regexp: '^ownerid 76561198025798290'
         line: 'ownerid 76561198025798290 "redlott22" "Admin"'
     - name: Rust ownerid swash
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/server/rustserver/cfg/users.cfg"
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/users.cfg"
         regexp: '^ownerid 76561198989378213'
         line: 'ownerid 76561198989378213 "Swashbuckler8" "Admin"'
     - name: Rust server description
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/server/rustserver/cfg/server.cfg"
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: '^server.description'
         line: 'server.description "{{ server_description }}"'
     - name: Rust server headerimage
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/server/rustserver/cfg/server.cfg"
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: "^server.headerimage"
         line: "server.headerimage {{ server_headerimage }}"
     - name: Rust server url
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/server/rustserver/cfg/server.cfg"
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: "^server.url"
         line: "server.url {{ server_url }}"
     - name: Rust server tags
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/server/rustserver/cfg/server.cfg"
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: '^server.tags'
         line: 'server.tags "{{ server_tags }}"'
     - name: Rust maxplayers=50
