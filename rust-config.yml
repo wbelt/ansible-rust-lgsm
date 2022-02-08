@@ -16,37 +16,37 @@
         line: 'ownerid {{ item }}'
         create: yes
       loop: "{{ server_ownerids }}"
-    - name: Rust server description
+    - name: Rust set server description
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: '^server.description'
         line: 'server.description "{{ server_description }}"'
-    - name: Rust server headerimage
+    - name: Rust set server headerimage
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: "^server.headerimage"
         line: "server.headerimage {{ server_headerimage }}"
-    - name: Rust server url
+    - name: Rust set server url
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: "^server.url"
         line: "server.url {{ server_url }}"
-    - name: Rust server tags
+    - name: Rust set server tags
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: '^server.tags'
         line: 'server.tags "{{ server_tags }}"'
-    - name: Rust maxplayers=50
+    - name: Rust set maxplayers
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/rustserver.cfg"
         regexp: '^maxplayers='
         line: 'maxplayers="{{ server_maxplayers }}"'
-    - name: Rust worldsize=4000
+    - name: Rust set worldsize
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/rustserver.cfg"
         regexp: '^worldsize='
         line: 'worldsize="{{ server_worldsize }}"'
-    - name: Rust servername
+    - name: Rust set servername
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/rustserver.cfg"
         regexp: '^servername='
