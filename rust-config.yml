@@ -3,11 +3,11 @@
   vars:
     rustuser: rustserver
   become: true
-  become_user: {{ rustuser }}
+  become_user: "{{ rustuser }}"
   tasks:
     - name: Rust Server User
       ansible.builtin.user:
-        name: {{ rustuser }}
+        name: "{{ rustuser }}"
         register: usr
     - name: Rust ownerid weld
       ansible.builtin.lineinfile:
