@@ -34,7 +34,7 @@
         name: "{{ rustuser }}"
         create_home: true
         shell: /bin/bash
-        register: usr
+      register: usr
     - name: accept steam license
       debconf:
         name: "steam"
