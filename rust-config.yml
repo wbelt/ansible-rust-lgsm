@@ -15,7 +15,7 @@
         regexp: '^ownerid {{ item }}'
         line: 'ownerid {{ item }}'
         create: yes
-      loop: "{{ server.ownerids }}"
+      loop: "{{ server_ownerids }}"
     - name: Rust server description
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
