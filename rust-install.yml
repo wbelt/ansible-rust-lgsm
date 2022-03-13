@@ -3,6 +3,9 @@
   vars:
     rustuser: rustserver
     lgsm_prereqs:
+      - cpio
+      - hostname
+      - xz-utils
       - curl
       - wget
       - file
