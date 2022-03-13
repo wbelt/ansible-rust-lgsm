@@ -35,6 +35,7 @@
     - name: Rust Server User
       ansible.builtin.user:
         name: "{{ rustuser }}"
+        group: "{{ rustuser }}"
         create_home: true
         shell: /bin/bash
       register: usr
