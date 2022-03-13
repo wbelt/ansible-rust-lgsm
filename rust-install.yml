@@ -32,6 +32,10 @@
   become: true
   become_user: root
   tasks:
+    - name: Rust Server User Group
+      ansible.builtin.group:
+        name: "{{ rustuser }}"
+        state: present
     - name: Rust Server User
       ansible.builtin.user:
         name: "{{ rustuser }}"
