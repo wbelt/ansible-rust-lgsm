@@ -75,8 +75,8 @@
     - name: Rust RCON password
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg"
-        regexp: '^rconpassword'
-        line: 'rconpassword="{{ rcon_password }}"'
+        regexp: '^rcon.password'
+        line: 'rcon.password="{{ rcon_password }}"'
     - name: Rust Cron Monitor
       ansible.builtin.cron:
         name: Rust Server Monitor
