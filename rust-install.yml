@@ -87,6 +87,7 @@
         weekday: "*"
         job: "{{ usr.home }}/rustserver monitor > /dev/null 2>&1"
         user: "{{ rustuser }}"
+        disabled: yes
     - name: Rust Cron Update
       ansible.builtin.cron:
         name: Rust Server Update
@@ -97,6 +98,7 @@
         weekday: "*"
         job: "{{ usr.home }}/rustserver update > /dev/null 2>&1"
         user: "{{ rustuser }}"
+        disabled: yes
     - name: Rust Cron Update LGSM
       ansible.builtin.cron:
         name: Rust Server Update LGSM
