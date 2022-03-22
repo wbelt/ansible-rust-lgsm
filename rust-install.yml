@@ -28,11 +28,9 @@
       - lib32z1
       - libsdl2-2.0-0:i386
     lgsm_prereqs_20_04:
-      - "{{ lgsm_prereqs_common }}"
-      - lib32gcc1
+      - "{{ lgsm_prereqs_common + [ lib32gcc1 ] }}"
     lgsm_prereqs_20_10:
-      - "{{ lgsm_prereqs_common }}"
-      - lib32gcc-s1
+      - "{{ lgsm_prereqs_common + [ lib32gcc-s1 ] }}"
 
   gather_facts: true
   become: true
