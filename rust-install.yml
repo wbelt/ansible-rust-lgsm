@@ -27,10 +27,6 @@
       - steamcmd
       - lib32z1
       - libsdl2-2.0-0:i386
-    lgsm_prereqs_20_04:
-      - "{{ lgsm_prereqs_common + [ 'lib32gcc1' ] }}"
-    lgsm_prereqs_20_10:
-      - "{{ lgsm_prereqs_common + [ 'lib32gcc-s1' ] }}"
 
   gather_facts: true
   become: true
@@ -56,15 +52,19 @@
     - name: Add i386 arch
       command: dpkg --add-architecture i386
     - name: Install prereqs (Ubuntu 20.04)
+      set_fact:
+        lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc1' ] }}"
       apt:
-        name: "{{ lgsm_prereqs_20_04 }}"
+        name: "{{ lgsm_prereqs }}"
         update_cache: yes
         state: present
       when:
         - ansible_distribution_version is version('20.10', '<')
     - name: Install prereqs (Ubuntu 20.10)
+      set_fact:
+        lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc-s1' ] }}"
       apt:
-        name: "{{ lgsm_prereqs_20_10 }}"
+        name: "{{ lgsm_prereqs }}"
         update_cache: yes
         state: present
       when:
