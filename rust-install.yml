@@ -51,24 +51,21 @@
         vtype: "select"
     - name: Add i386 arch
       command: dpkg --add-architecture i386
-    - name: Install prereqs (Ubuntu 20.04)
+    - name: Update prereqs (Ubuntu 20.04)
       set_fact:
-        lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc1' ] }}"
-      apt:
-        name: "{{ lgsm_prereqs }}"
-        update_cache: yes
-        state: present
+        lgsm_prereqs: "{{ lgsm_prereqs_common + [ lib32gcc1 ] }}"
       when:
         - ansible_distribution_version is version('20.10', '<')
-    - name: Install prereqs (Ubuntu 20.10)
+    - name: Update prereqs (Ubuntu 20.10)
       set_fact:
-        lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc-s1' ] }}"
+        lgsm_prereqs: "{{ lgsm_prereqs_common + [ lib32gcc-s1 ] }}"
+      when:
+        - ansible_distribution_version is version('20.10', '>=')
+    - name: Install prereqs
       apt:
         name: "{{ lgsm_prereqs }}"
         update_cache: yes
         state: present
-      when:
-        - ansible_distribution_version is version('20.10', '>=')
     - name: Download lgsm installer
       ansible.builtin.shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
       args:
