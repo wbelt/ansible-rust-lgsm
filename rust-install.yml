@@ -2,7 +2,7 @@
 - hosts: all
   vars:
     rustuser: rustserver
-    lgsm_prereqs:
+    lgsm_prereqs_20_04:
       - cpio
       - hostname
       - xz-utils
@@ -23,6 +23,31 @@
       - tmux
       - netcat
       - lib32gcc1
+      - lib32stdc++6
+      - steamcmd
+      - lib32z1
+      - libsdl2-2.0-0:i386
+    lgsm_prereqs_20_10:
+      - cpio
+      - hostname
+      - xz-utils
+      - curl
+      - wget
+      - file
+      - tar
+      - bzip2
+      - gzip
+      - unzip
+      - bsdmainutils
+      - python3
+      - util-linux
+      - ca-certificates
+      - binutils
+      - bc
+      - jq
+      - tmux
+      - netcat
+      - lib32gcc-s1
       - lib32stdc++6
       - steamcmd
       - lib32z1
@@ -51,11 +76,18 @@
         vtype: "select"
     - name: Add i386 arch
       command: dpkg --add-architecture i386
-    - name: Install prereqs
+    - name: Install prereqs (Ubuntu 20.04)
       apt:
-        name: "{{ lgsm_prereqs }}"
+        name: "{{ lgsm_prereqs_20_04 }}"
         update_cache: yes
         state: present
+      when: (ansible.facts['ansible_distribution_major_version'] == "20") and (ansible.facts['ansible_distribution_version'] <= "20.04")
+    - name: Install prereqs (Ubuntu 20.10)
+      apt:
+        name: "{{ lgsm_prereqs_20_10 }}"
+        update_cache: yes
+        state: present
+      when: (ansible.facts['ansible_distribution_major_version'] == "20") and (ansible.facts['ansible_distribution_version'] >= "20.10")
     - name: Download lgsm installer
       ansible.builtin.shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
       args:
