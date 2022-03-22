@@ -82,14 +82,14 @@
         update_cache: yes
         state: present
       when:
-        - ansible_facts['ansible_distribution_version'] | float <= 20.04
+        - ansible_distribution_version | float <= 20.04
     - name: Install prereqs (Ubuntu 20.10)
       apt:
         name: "{{ lgsm_prereqs_20_10 }}"
         update_cache: yes
         state: present
       when:
-        - ansible_facts['ansible_distribution_version'] | float >= 20.10
+        - ansible_distribution_version | float >= 20.10
     - name: Download lgsm installer
       ansible.builtin.shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
       args:
