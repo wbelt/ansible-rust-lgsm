@@ -53,12 +53,12 @@
       command: dpkg --add-architecture i386
     - name: Update prereqs (Ubuntu 20.04)
       set_fact:
-        lgsm_prereqs: "{{ lgsm_prereqs_common + [ lib32gcc1 ] }}"
+        lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc1' ] }}"
       when:
         - ansible_distribution_version is version('20.10', '<')
     - name: Update prereqs (Ubuntu 20.10)
       set_fact:
-        lgsm_prereqs: "{{ lgsm_prereqs_common + [ lib32gcc-s1 ] }}"
+        lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc-s1' ] }}"
       when:
         - ansible_distribution_version is version('20.10', '>=')
     - name: Install prereqs
