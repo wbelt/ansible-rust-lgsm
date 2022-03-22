@@ -2,58 +2,37 @@
 - hosts: all
   vars:
     rustuser: rustserver
+    lgsm_prereqs_common:
+      - cpio
+      - cron
+      - hostname
+      - xz-utils
+      - curl
+      - wget
+      - file
+      - tar
+      - bzip2
+      - gzip
+      - unzip
+      - bsdmainutils
+      - python3
+      - util-linux
+      - ca-certificates
+      - binutils
+      - bc
+      - jq
+      - tmux
+      - netcat
+      - lib32stdc++6
+      - steamcmd
+      - lib32z1
+      - libsdl2-2.0-0:i386
     lgsm_prereqs_20_04:
-      - cpio
-      - cron
-      - hostname
-      - xz-utils
-      - curl
-      - wget
-      - file
-      - tar
-      - bzip2
-      - gzip
-      - unzip
-      - bsdmainutils
-      - python3
-      - util-linux
-      - ca-certificates
-      - binutils
-      - bc
-      - jq
-      - tmux
-      - netcat
+      - "{{ lgsm_prereqs_common }}"
       - lib32gcc1
-      - lib32stdc++6
-      - steamcmd
-      - lib32z1
-      - libsdl2-2.0-0:i386
     lgsm_prereqs_20_10:
-      - cpio
-      - cron
-      - hostname
-      - xz-utils
-      - curl
-      - wget
-      - file
-      - tar
-      - bzip2
-      - gzip
-      - unzip
-      - bsdmainutils
-      - python3
-      - util-linux
-      - ca-certificates
-      - binutils
-      - bc
-      - jq
-      - tmux
-      - netcat
+      - "{{ lgsm_prereqs_common }}"
       - lib32gcc-s1
-      - lib32stdc++6
-      - steamcmd
-      - lib32z1
-      - libsdl2-2.0-0:i386
 
   gather_facts: true
   become: true
