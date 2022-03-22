@@ -4,6 +4,7 @@
     rustuser: rustserver
     lgsm_prereqs_20_04:
       - cpio
+      - cron
       - hostname
       - xz-utils
       - curl
@@ -29,6 +30,7 @@
       - libsdl2-2.0-0:i386
     lgsm_prereqs_20_10:
       - cpio
+      - cron
       - hostname
       - xz-utils
       - curl
