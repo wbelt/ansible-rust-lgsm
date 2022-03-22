@@ -82,7 +82,7 @@
         update_cache: yes
         state: present
       when:
-        - ansible_distribution_version | float <= 20.04
+        - ansible_distribution_version | float <= 20.04.9999999999
     - name: Install prereqs (Ubuntu 20.10)
       apt:
         name: "{{ lgsm_prereqs_20_10 }}"
