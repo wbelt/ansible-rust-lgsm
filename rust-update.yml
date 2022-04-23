@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Rust Server Update
+      shell: "./rustserver update"
+      args:
+        chdir: /home/rustserver
+        executable: /bin/bash       
+      become: True
+      become_user: rustserver
