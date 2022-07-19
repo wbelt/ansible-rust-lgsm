@@ -12,14 +12,14 @@
     - name: Add Rust ownerids
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/users.cfg"
-        regexp: '^ownerid {{ item }}'
-        line: 'ownerid {{ item }}'
+        regexp: "^ownerid {{ item }}"
+        line: "ownerid {{ item }}"
         create: yes
       loop: "{{ server_ownerids }}"
     - name: Rust set server description
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
-        regexp: '^server.description'
+        regexp: "^server.description"
         line: 'server.description "{{ server_description }}"'
     - name: Rust set server headerimage
       ansible.builtin.lineinfile:
@@ -36,6 +36,25 @@
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: '^server.tags'
         line: 'server.tags "{{ server_tags }}"'
+    - name: Rust allow motorboat spawns
+      ansible.builtin.lineinfile:
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
+        regexp: '^motorrowboat.population'
+        line: 'motorrowboat.population 1'
+    - name: Rust allow minicopter spawns
+      ansible.builtin.lineinfile:
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
+        regexp: '^minicopter.population'
+        line: 'minicopter.population 1'
+    - name: Rust set decay to 10% normal rate
+      ansible.builtin.blockinfile:
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
+        block: |
+          decay.bracket_0_costfraction 0.01
+          decay.bracket_1_costfraction 0.015
+          decay.bracket_2_costfraction 0.02
+          decay.bracket_3_costfraction 0.033
+        marker: "# {mark} Adjust decay to 10%"
     - name: Rust set maxplayers
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/rustserver.cfg"
