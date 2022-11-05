@@ -31,6 +31,11 @@
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
         regexp: "^server.url"
         line: "server.url {{ server_url }}"
+    - name: Rust set server censorplayerlist
+      ansible.builtin.lineinfile:
+        path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
+        regexp: "^server.censorplayerlist"
+        line: "server.censorplayerlist {{ server_censorplayerlist }}"
     - name: Rust set server tags
       ansible.builtin.lineinfile:
         path: "{{ usr.home }}/serverfiles/server/rustserver/cfg/server.cfg"
