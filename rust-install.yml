@@ -24,6 +24,7 @@
       - tmux
       - netcat
       - lib32stdc++6
+      - lib32gcc-s1
       - steamcmd
       - lib32z1
       - libsdl2-2.0-0:i386
