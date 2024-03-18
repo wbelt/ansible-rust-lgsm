@@ -1,0 +1,46 @@
+---
+- hosts: all
+  vars:
+    rustuser: rustserver
+
+  gather_facts: true
+  become: true
+  become_user: root
+  tasks:
+    - name: Rust RCON password
+      ansible.builtin.lineinfile:
+        path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg"
+        regexp: "^rconpassword"
+        line: "rconpassword={{ rcon_password }}"
+    - name: Rust Cron Monitor
+      ansible.builtin.cron:
+        name: Rust Server Monitor
+        minute: "*/5"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "{{ usr.home }}/rustserver monitor > /dev/null 2>&1"
+        user: "{{ rustuser }}"
+        disabled: yes
+    - name: Rust Cron Update
+      ansible.builtin.cron:
+        name: Rust Server Update
+        minute: "*/30"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "{{ usr.home }}/rustserver update > /dev/null 2>&1"
+        user: "{{ rustuser }}"
+        disabled: yes
+    - name: Rust Cron Update LGSM
+      ansible.builtin.cron:
+        name: Rust Server Update LGSM
+        minute: "15"
+        hour: "3"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "{{ usr.home }}/rustserver update-lgsm > /dev/null 2>&1"
+        user: "{{ rustuser }}"
