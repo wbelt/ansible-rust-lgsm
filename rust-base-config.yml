@@ -9,7 +9,7 @@
   tasks:
     - name: Rust RCON password
       ansible.builtin.lineinfile:
-        path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg"
+        path: "/home/{{ rustuser }}/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg"
         regexp: "^rconpassword"
         line: "rconpassword={{ rcon_password }}"
     - name: Rust Cron Monitor
@@ -20,7 +20,7 @@
         day: "*"
         month: "*"
         weekday: "*"
-        job: "{{ usr.home }}/rustserver monitor > /dev/null 2>&1"
+        job: "./rustserver monitor > /dev/null 2>&1"
         user: "{{ rustuser }}"
         disabled: yes
     - name: Rust Cron Update
@@ -31,7 +31,7 @@
         day: "*"
         month: "*"
         weekday: "*"
-        job: "{{ usr.home }}/rustserver update > /dev/null 2>&1"
+        job: "./rustserver update > /dev/null 2>&1"
         user: "{{ rustuser }}"
         disabled: yes
     - name: Rust Cron Update LGSM
@@ -42,5 +42,5 @@
         day: "*"
         month: "*"
         weekday: "*"
-        job: "{{ usr.home }}/rustserver update-lgsm > /dev/null 2>&1"
+        job: "./rustserver update-lgsm > /dev/null 2>&1"
         user: "{{ rustuser }}"
