@@ -116,6 +116,9 @@
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/secrets-rustserver.cfg"
         regexp: "^rconpassword"
         line: "rconpassword={{ rcon_password }}"
+    - name: Set timezone to America/New_York
+      timezone:
+        name: America/New_York
     - name: Rust Cron Monitor
       ansible.builtin.cron:
         name: Rust Server Monitor
