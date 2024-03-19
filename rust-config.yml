@@ -80,3 +80,4 @@
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/rustserver.cfg"
         regexp: '^seed='
         line: 'servername="{{ server_seed }}"'
+      when: server_seed is defined
