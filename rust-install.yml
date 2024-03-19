@@ -117,7 +117,7 @@
         regexp: "^rconpassword"
         line: "rconpassword={{ rcon_password }}"
     - name: Set timezone to America/New_York
-      timezone:
+      community.general.timezone:
         name: America/New_York
     - name: Rust Cron Monitor
       ansible.builtin.cron:
