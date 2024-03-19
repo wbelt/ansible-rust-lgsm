@@ -75,3 +75,8 @@
         path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/rustserver.cfg"
         regexp: '^servername='
         line: 'servername="{{ server_name }}"'
+    - name: Rust set server seed
+      ansible.builtin.lineinfile:
+        path: "{{ usr.home }}/lgsm/config-lgsm/rustserver/rustserver.cfg"
+        regexp: '^seed='
+        line: 'servername="{{ server_seed }}"'
