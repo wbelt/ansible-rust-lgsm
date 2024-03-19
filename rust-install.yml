@@ -2,6 +2,19 @@
 - hosts: all
   vars:
     rustuser: rustserver
+    lgsm_alma_prereqs:
+      - bc
+      - binutils
+      - bzip2
+      - epel-release
+      - glibc.i686
+      - jq
+      - libstdc++.i686
+      - nmap-ncat
+      - python36
+      - tmux
+      - unzip
+      - zlib-devel
     lgsm_prereqs_common:
       - cpio
       - cron
@@ -50,23 +63,38 @@
         question: "steam/question"
         value: "I AGREE"
         vtype: "select"
+      when:
+        - ansible_facts['distribution'] == "Ubuntu"
     - name: Add i386 arch
       command: dpkg --add-architecture i386
+      when:
+        - ansible_facts['distribution'] == "Ubuntu"
     - name: Update prereqs (Ubuntu 20.04)
       set_fact:
         lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc1' ] }}"
       when:
         - ansible_distribution_version is version('20.10', '<')
+        - ansible_facts['distribution'] == "Ubuntu"
     - name: Update prereqs (Ubuntu 20.10)
       set_fact:
         lgsm_prereqs: "{{ lgsm_prereqs_common + [ 'lib32gcc-s1' ] }}"
       when:
         - ansible_distribution_version is version('20.10', '>=')
-    - name: Install prereqs
+        - ansible_facts['distribution'] == "Ubuntu"
+    - name: Install prereqs (Ubuntu)
       apt:
         name: "{{ lgsm_prereqs }}"
         update_cache: yes
         state: present
+      when:
+        - ansible_facts['distribution'] == "Ubuntu"
+    - name: Install prereqs (AlmaLinux)
+      ansible.builtin.dnf:
+        name: "{{ lgsm_alma_prereqs }}"
+        update_cache: yes
+        state: latest
+      when:
+        - ansible_facts['distribution'] == "AlmaLinux"
     - name: Download lgsm installer
       ansible.builtin.shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
       args:
